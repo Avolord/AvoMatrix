@@ -129,6 +129,16 @@ class Matrix {
 
   }
 
+  static invert(M1) {
+    if(!(M1 instanceof Matrix)) {
+      console.log(Matrix.wrong_type_error_message2());
+      return null;
+    }
+    let M2 = M1.copy();
+        M2.invert();
+    return M2;
+  }
+
   //--/\/\=Most of the non-static functions change the data of the matrix object used as input=/\/\--\\
 
   //makes the input-matrix a random matrix with number from a given intervall
@@ -199,6 +209,11 @@ class Matrix {
       });
     });
     return result;
+  }
+
+  //inverts every number of the matrix
+  invert() {
+    this.data = this.data.map(rows => rows.map(cols => cols*-1));
   }
 
   //adds a [matrix or number] to this matrix.
