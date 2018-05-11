@@ -44,7 +44,7 @@ class Matrix {
 
   static wrong_dim_error_message() {
     if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong dimensions! Amount of columns of A have to be equal to the amount of rows of B."
+    return "Error, wrong dimensions! Amount of columns of A has to be equal to the amount of rows of B."
   }
 
   static randomInt(min,max) {
