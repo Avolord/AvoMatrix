@@ -129,6 +129,8 @@ class Matrix {
 
   }
 
+  //--/\/\=Most of the non-static functions change the data of the matrix object used as input=/\/\--\\
+
   //makes the input-matrix a random matrix with number from a given intervall
   random(min,max) {
     this.data = this.data.map(row => row.map(col => Matrix.randomInt(min || 0,max || 1)));
