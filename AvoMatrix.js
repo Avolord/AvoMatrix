@@ -12,10 +12,12 @@ class Matrix {
     this.data = new Array(this.rows).fill(new Array(this.cols).fill(fill));
   }
 
+  //displayes the matrix in the console [in a table].
   show() {
     console.table(this.data);
   }
 
+  //Activate or deactivate error messages.
   static Error_Message() {
     Matrix_Class_Error_Message = (Matrix_Class_Error_Message) ? false : true;
     switch(Matrix_Class_Error_Message) {
@@ -27,6 +29,7 @@ class Matrix {
     }
   }
 
+  //Error messages if a wrong argument is used
   static wrong_type_error_message() {
     if(!Matrix_Class_Error_Message) {return}
     return "Error, wrong object! The object has to be a matrix or a number."
@@ -47,10 +50,12 @@ class Matrix {
     return "Error, wrong dimensions! Amount of columns of A has to be equal to the amount of rows of B."
   }
 
+  //A function that returns a random integer from a given Interval [min;max] {for standalone purposes}
   static randomInt(min,max) {
     return Math.floor(min + Math.random()*(max+1 - min));
   }
 
+  //returns a matrix where the diagonal line is filled with the "diagonal num" and the rest with the "filler [num]".
   static diagonal(M1,diagonal_num,filler) {
     if(!(M1 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -61,6 +66,7 @@ class Matrix {
     return M2;
   }
 
+  //returns a randomly filled matrix with numbers from a given intervall.
   static random(M1,min,max) {
     if(!(M1 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -71,6 +77,7 @@ class Matrix {
     return M2;
   }
 
+  //returns a matrix that has been mapped with a given function {more information at the non-static map function}
   static map(M1,func) {
     if(!(M1 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -81,30 +88,35 @@ class Matrix {
         return M2;
   }
 
+  //adds a [matrix or number] to another matrix and returns the result
   static add(M1,Obj) {
     let M2 = M1.copy();
         M2.add(Obj);
     return M2;
   }
 
+  //subtracts a [matrix or number] from another matrix and returns the result
   static sub(M1,Obj) {
     let M2 = M1.copy();
         M2.sub(Obj);
     return M2;
   }
 
+  //multiplies a [matrix or number] with another matrix and returns the result
   static mult(M1,Obj) {
     let M2 = M1.copy();
         M2.mult(Obj);
     return M2;
   }
 
+  //divides a [matrix or number] from another matrix and returns the result
   static div(M1,Obj) {
     let M2 = M1.copy();
         M2.div(Obj);
     return M2;
   }
 
+  //[WIP] returns the matrix product of two matrices
   static prod(M1,M2) {
     if(!(M1 instanceof Matrix) || !(M2 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -114,13 +126,15 @@ class Matrix {
       console.log(Matrix.wrong_dim_error_message());
       return null;
     }
-    
+
   }
 
+  //makes the input-matrix a random matrix with number from a given intervall
   random(min,max) {
     this.data = this.data.map(row => row.map(col => Matrix.randomInt(min || 0,max || 1)));
   }
 
+  //returns the sum of every number of a matrix added up
   reduce() {
     if(Array.flatten) {
     return this.data.flatten().reduce();
@@ -135,6 +149,7 @@ class Matrix {
   }
   }
 
+  //maps a function to every element of a matrix
   map(func) {
     if(typeof func != "function") {
       console.log(Matrix.wrong_type_error_message3());
@@ -143,12 +158,14 @@ class Matrix {
     this.data = this.data.map(rows => rows.map(cols => func(cols)));
   }
 
+  //retuns a copy of the matrix
   copy() {
     let result = new Matrix(this.rows,this.cols);
         result.data = this.data.slice(0);
     return result;
   }
 
+  //makes it a unit matrix
   unit() {
     this.data = this.data.map((rows,main_index) => {
       return rows.map((cols,sub_index) => {
@@ -157,6 +174,7 @@ class Matrix {
     });
   }
 
+  //makes it a diagonal matrix with "diagonal_num[bers]" for the diagonal line and "filler [numbers]" for the rest.
   diagonal(diagonal_num,filler) {
     if((diagonal_num != undefined && typeof diagonal_num != "number") || (filler != undefined && typeof filler != "number")) {
       console.log(Matrix.wrong_type_error_message());
@@ -169,6 +187,7 @@ class Matrix {
     });
   }
 
+  //transposes a matrix
   transpose() {
     let result = new Matrix(this.cols,this.rows);
         result.show();
@@ -180,6 +199,7 @@ class Matrix {
     return result;
   }
 
+  //adds a [matrix or number] to this matrix.
   add(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
@@ -193,6 +213,7 @@ class Matrix {
     console.log(Matrix.wrong_type_error_message());
   }
 
+  //subtracts a [matrix or number] from this matrix.
   sub(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
@@ -206,6 +227,7 @@ class Matrix {
     console.log(Matrix.wrong_type_error_message());
   }
 
+  //multiplies a [matrix or number] with this matrix.
   mult(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
@@ -219,6 +241,7 @@ class Matrix {
     console.log(Matrix.wrong_type_error_message());
   }
 
+  //divides a [matrix or number] from this matrix.
   div(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
