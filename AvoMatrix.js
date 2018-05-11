@@ -32,7 +32,7 @@ class Matrix {
     return "Error, wrong object! The object has to be a matrix or a number."
   }
 
-  static wrong_type_error_message3() {
+  static wrong_type_error_message2() {
     if(!Matrix_Class_Error_Message) {return}
     return "Error, wrong object! The object has to be a matrix."
   }
