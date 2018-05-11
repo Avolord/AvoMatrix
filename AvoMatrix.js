@@ -6,7 +6,7 @@ class Matrix {
   constructor(rows,columns,fill) {
     rows = (Number.isInteger(rows)) ? rows : 3;
     columns = (Number.isInteger(columns)) ? columns : 3;
-    fill = (Number.isInteger(fill)) ? fill : 0;
+    fill = (fill instanceof Number) ? fill : 0;
     this.cols = columns;
     this.rows = rows;
     this.data = new Array(this.rows).fill(new Array(this.cols).fill(fill));
