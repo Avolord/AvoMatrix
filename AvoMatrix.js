@@ -45,14 +45,46 @@ class Matrix {
     return "Error, wrong object! The object has to be a function."
   }
 
+  static wrong_type_error_message4() {
+    if(!Matrix_Class_Error_Message) {return}
+    return "Error, wrong object! The object has to be an array."
+  }
+
   static wrong_dim_error_message() {
     if(!Matrix_Class_Error_Message) {return}
     return "Error, wrong dimensions! Amount of columns of A has to be equal to the amount of rows of B."
   }
 
+  static wrong_array_dim_error_message() {
+    if(!Matrix_Class_Error_Message) {return}
+    return "Error, wrong dimensions! Sub arrays have to have the same length."
+  }
+
   //A function that returns a random integer from a given Interval [min;max] {for standalone purposes}
   static randomInt(min,max) {
     return Math.floor(min + Math.random()*(max+1 - min));
+  }
+
+  //returns a matrix object from an array as a input (can be double or single layered).
+  static fromArray(array) {
+    if(!(array instanceof Array)) {
+      console.log(Matrix.wrong_type_error_message4());
+      return null;
+    }
+    let columns = 1;
+    if(array[0] instanceof Array) {
+      if(!array.every(x => x.length == array[0].length)) {
+        console.log(Matrix.wrong_array_dim_error_message());
+        return null;
+      } else {
+        columns = array[0].length;
+      }
+    }
+    let result = new Matrix(array.length,columns);
+        result.data = result.data.map((x,i) => {
+          return array[i];
+        });
+        return result;
   }
 
   //returns a matrix where the diagonal line is filled with the "diagonal num" and the rest with the "filler [num]".
@@ -128,7 +160,7 @@ class Matrix {
     }
 
   }
-
+  //returns a matrix where every number is inverted
   static invert(M1) {
     if(!(M1 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -144,6 +176,18 @@ class Matrix {
   //makes the input-matrix a random matrix with number from a given intervall
   random(min,max) {
     this.data = this.data.map(row => row.map(col => Matrix.randomInt(min || 0,max || 1)));
+  }
+
+  //retuns the data of a matrix as an array-object.
+  toArray() {
+    let result = new Array(this.rows);
+        result = this.data.splice(0);
+        return result;
+  }
+
+  //returns the data of a matrix as a string.
+  toString() {
+    return this.data.toString();
   }
 
   //returns the sum of every number of a matrix added up
@@ -202,7 +246,6 @@ class Matrix {
   //transposes a matrix
   transpose() {
     let result = new Matrix(this.cols,this.rows);
-        result.show();
     result.data = result.data.map((rows,main_index) => {
       return rows.map((cols,sub_index) => {
         return this.data[sub_index][main_index];
