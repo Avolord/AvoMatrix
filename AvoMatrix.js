@@ -47,7 +47,12 @@ class Matrix {
 
   static wrong_type_error_message4() {
     if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong object! The object has to be an array."
+    return "Error, wrong object! The object has to be an array [of the right type]."
+  }
+
+  static wrong_type_error_message5() {
+    if(!Matrix_Class_Error_Message) {return}
+    return "Error, wrong object! The object has to be a number."
   }
 
   static wrong_dim_error_message() {
@@ -65,9 +70,21 @@ class Matrix {
     return Math.floor(min + Math.random()*(max+1 - min));
   }
 
+  static array_mult(a1,a2) { //skalar multiplikation of an array
+    if(!(a1 instanceof Array) || !(a2 instanceof Array) || a1.length != a2.length) {
+      console.log(Matrix.wrong_type_error_message4());
+      return null;
+    }
+    let result = 0;
+    a1.forEach((x,i) => {
+      result+=x*a2[i];
+    });
+    return result;
+  }
+
   //returns a matrix object from an array as a input (can be double or single layered).
   static fromArray(array) {
-    if(!(array instanceof Array)) {
+    if(!(array instanceof Array) || !(array[0] instanceof Array)) { //The array needs to have sub arrays
       console.log(Matrix.wrong_type_error_message4());
       return null;
     }
@@ -158,7 +175,16 @@ class Matrix {
       console.log(Matrix.wrong_dim_error_message());
       return null;
     }
-
+    let result = new Matrix(M1.rows,M2.cols);
+    let helper = M2.transpose();
+    M1.show();
+    helper.show();
+    result.data = result.data.map((rows,main_index) => {
+      return rows.map((col,sub_index) => {
+        return Matrix.array_mult(M1.data[main_index],helper.data[sub_index]);
+      });
+    });
+    return result;
   }
   //returns a matrix where every number is inverted
   static invert(M1) {
