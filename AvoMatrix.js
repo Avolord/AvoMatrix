@@ -177,8 +177,6 @@ class Matrix {
     }
     let result = new Matrix(M1.rows,M2.cols);
     let helper = M2.transpose();
-    M1.show();
-    helper.show();
     result.data = result.data.map((rows,main_index) => {
       return rows.map((col,sub_index) => {
         return Matrix.array_mult(M1.data[main_index],helper.data[sub_index]);
