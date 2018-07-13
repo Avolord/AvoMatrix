@@ -187,4 +187,4 @@ Input-matrix**
 </pre>
 
 ### <a name="logging"></a>Logging a Matrix to the console
-Matrices can be logged to the console with <code>.show()<code>
+Matrices can be logged to the console with <code>.show()</code>
