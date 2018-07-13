@@ -1,76 +1,75 @@
+/**
+  * @version 1.0.0
+  * @author AvoLord
+  * @description Performs simple matrix math
+  */
+
+
+/**
+  * Sets the Error-messages and the state
+  */
 let Matrix_Class_Error_Message = true;
+let WrongType1 = new TypeError("Error, wrong object! The object has to be a matrix or a number.");
+let WrongType2 = new TypeError("Error, wrong object! The object has to be a matrix.");
+let WrongType3 = new TypeError("Error, wrong object! The object has to be a function.");
+let WrongDim1  = new RangeError("Error, wrong dimensions! Amount of columns of A have to be equal to the amount of rows of B.");
 
-//Most of the error catches are in the non-static functions [Just a hint]
-
+/**
+  * Creates a new matrix-object with given rows, columns and fill
+  * @constructor
+  * @param { Number } rows - The amount of rows of the matrix
+  * @param { Number } columns - The amount of columns of the matrix
+  * @param { Number } fill - The number with wich the matrix will be filled
+  */
 class Matrix {
   constructor(rows,columns,fill) {
     rows = (Number.isInteger(rows)) ? rows : 3;
     columns = (Number.isInteger(columns)) ? columns : 3;
-    fill = (fill instanceof Number) ? fill : 0;
+    fill = (Number.isInteger(fill)) ? fill : 0;
     this.cols = columns;
     this.rows = rows;
-    this.data = new Array(this.rows).fill(new Array(this.cols).fill(fill));
+    this.data = new Array(this.rows).fill(0).map(cols => new Array(this.cols).fill(fill));
   }
 
-  //displayes the matrix in the console [in a table].
+/**
+  * Shows the contents of the matrix in the console
+  * @inner
+  */
   show() {
     console.table(this.data);
   }
 
-  //Activate or deactivate error messages.
+/**
+  * Toggels if Error messages are displayed
+  * @static
+  */
   static Error_Message() {
     Matrix_Class_Error_Message = (Matrix_Class_Error_Message) ? false : true;
-    switch(Matrix_Class_Error_Message) {
-      case true:
-      console.log("Error messages are now displayed!");
-      break;
-      case false:
-      console.log("Error messages are now hidden!");
-    }
+    console.log((Matrix_Class_Error_Message)
+       ?  "Error messages are now displayed!" :
+          "Error messages are now hidden!"
+    );
   }
 
-  //Error messages if a wrong argument is used
-  static wrong_type_error_message() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong object! The object has to be a matrix or a number."
-  }
-
-  static wrong_type_error_message2() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong object! The object has to be a matrix."
-  }
-
-  static wrong_type_error_message3() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong object! The object has to be a function."
-  }
-
-  static wrong_type_error_message4() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong object! The object has to be an array [of the right type]."
-  }
-
-  static wrong_type_error_message5() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong object! The object has to be a number."
-  }
-
-  static wrong_dim_error_message() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong dimensions! Amount of columns of A has to be equal to the amount of rows of B."
-  }
-
-  static wrong_array_dim_error_message() {
-    if(!Matrix_Class_Error_Message) {return}
-    return "Error, wrong dimensions! Sub arrays have to have the same length."
-  }
-
-  //A function that returns a random integer from a given Interval [min;max] {for standalone purposes}
+/**
+  * Creates a random Integer
+  * @static
+  * @param { Number } min - The minimum random number
+  * @param { Number } max - The maximum random number
+  * @return { Number } - A random number between min and max
+  */
   static randomInt(min,max) {
     return Math.floor(min + Math.random()*(max+1 - min));
   }
 
-  static array_mult(a1,a2) { //skalar multiplikation of an array
+/**
+  * The scalar-multiplication of two arrays seen as vectors
+  * @static
+  * @param { Object } a1 - The first  array / vector
+  * @param { Object } a2 - The second array / vector
+  * @return { Object } The scalar-product of two "vectors"
+  */
+  static array_mult(a1,a2) {
     if(!(a1 instanceof Array) || !(a2 instanceof Array) || a1.length != a2.length) {
       console.log(Matrix.wrong_type_error_message4());
       return null;
@@ -82,11 +81,19 @@ class Matrix {
     return result;
   }
 
-  //returns a matrix object from an array as a input (can be double or single layered).
+/**
+  * Creates matrix-object from a two-dimensional array
+  * @static
+  * @param { Object } array - The array that will be converted to a matrix
+  * @return { Object } A new matrix-object with the values form the array
+  */
   static fromArray(array) {
-    if(!(array instanceof Array) || !(array[0] instanceof Array)) { //The array needs to have sub arrays
+    if(!(array instanceof Array)) {
       console.log(Matrix.wrong_type_error_message4());
       return null;
+    }
+    if(!(array[0] instanceof Array)) {
+      array = array.map(x => new Array(1).fill(x));
     }
     let columns = 1;
     if(array[0] instanceof Array) {
@@ -104,10 +111,17 @@ class Matrix {
         return result;
   }
 
-  //returns a matrix where the diagonal line is filled with the "diagonal num" and the rest with the "filler [num]".
+/**
+  * Creates a diagnonal matrix-object
+  * @static
+  * @param { Object } M1 - The matrix that will be cloned and converted
+  * @param { Number } diagnonal_num - The number that will fill the diagonal line
+  * @param { Number } filler - The number that will fill the result
+  * @return { Object } A new matrix with the same dimensions as the input-matrix but with a new set of numbers
+  */
   static diagonal(M1,diagonal_num,filler) {
     if(!(M1 instanceof Matrix)) {
-      console.log(Matrix.wrong_type_error_message2());
+      throw WrongType2
       return null;
     }
     let M2 = M1.copy();
@@ -115,10 +129,17 @@ class Matrix {
     return M2;
   }
 
-  //returns a randomly filled matrix with numbers from a given intervall.
+/**
+  * Creates a matrix-object with random numbers
+  * @static
+  * @param { Object } M1 - The matrix that will be cloned and converted
+  * @param { Number } min - The minimum random number
+  * @param { Number } max - The maximum random number
+  * @return { Object } A new matrix with the same dimensions as the input-matrix but with random numbers randing form min to max
+  */
   static random(M1,min,max) {
     if(!(M1 instanceof Matrix)) {
-      console.log(Matrix.wrong_type_error_message2());
+      throw WrongType2
       return null;
     }
     let M2 = M1.copy();
@@ -126,10 +147,16 @@ class Matrix {
     return M2;
   }
 
-  //returns a matrix that has been mapped with a given function {more information at the non-static map function}
+/**
+  * Creates a matrix on which a function has been mapped to
+  * @static
+  * @param { Object } M1 - The Matrix that will be cloned and converted
+  * @param { function } func - The function that will alter the elements of the matrix
+  * @return { Object } A new matrix with the same dimensions as the input-matrix but with a new set of numbers
+  */
   static map(M1,func) {
     if(!(M1 instanceof Matrix)) {
-      console.log(Matrix.wrong_type_error_message2());
+      throw WrongType2
       return null;
     }
     let M2 = M1.copy();
@@ -137,35 +164,69 @@ class Matrix {
         return M2;
   }
 
-  //adds a [matrix or number] to another matrix and returns the result
+/**
+  * Creates a new matrix from the sum of the elements of two matrices or a matrix and a number
+  * @static
+  * @param { Object } M1 - The matrix that will be cloned and converted
+  * @param { Number } Obj - The number that will be added to all elements of the matrix
+  * @param { Object } Obj - The matrix whose elements will be added to the elements of M1
+  * @return { Object } A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+  */
   static add(M1,Obj) {
     let M2 = M1.copy();
         M2.add(Obj);
     return M2;
   }
 
-  //subtracts a [matrix or number] from another matrix and returns the result
+  /**
+    * Creates a new matrix from the difference of the elements of two matrices or a matrix and a number
+    * @static
+    * @param { Object } M1 - The matrix that will be cloned and converted
+    * @param { Number } Obj - The number that will be subtracted from all elements of the matrix
+    * @param { Object } Obj - The matrix whose elements will be subtracted from the elements of M1
+    * @return { Object } A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+    */
   static sub(M1,Obj) {
     let M2 = M1.copy();
         M2.sub(Obj);
     return M2;
   }
 
-  //multiplies a [matrix or number] with another matrix and returns the result
+  /**
+    * Creates a new matrix from the product of the elements of two matrices or a matrix and a number
+    * @static
+    * @param { Object } M1 - The matrix that will be cloned and converted
+    * @param { Number } Obj - The number that will be multiplied with all elements of the matrix
+    * @param { Object } Obj - The matrix whose elements will be multiplied by the elements of M1
+    * @return { Object } A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+    */
   static mult(M1,Obj) {
     let M2 = M1.copy();
         M2.mult(Obj);
     return M2;
   }
 
-  //divides a [matrix or number] from another matrix and returns the result
+  /**
+    * Creates a new matrix from the division of the elements of two matrices or a matrix and a number
+    * @static
+    * @param { Object } M1 - The matrix that will be cloned and converted
+    * @param { Number } Obj - The number that will be divided from all elements of the matrix
+    * @param { Object } Obj - The matrix whose elements will be divided by the elements of M1
+    * @return { Object } A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+    */
   static div(M1,Obj) {
     let M2 = M1.copy();
         M2.div(Obj);
     return M2;
   }
 
-  //[WIP] returns the matrix product of two matrices
+/**
+  * Creates a new matrix from the multiplication of two matrices
+  * @static
+  * @param { Object } M1 - The first matrix
+  * @param { Object } M2 - The second matrix that will be multiplied with the first
+  * @return { Object } The Product of the matrix multiplication
+  */
   static prod(M1,M2) {
     if(!(M1 instanceof Matrix) || !(M2 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -184,7 +245,13 @@ class Matrix {
     });
     return result;
   }
-  //returns a matrix where every number is inverted
+
+/**
+  * Creates a new matrix whose values are inverted
+  * @static
+  * @param { Object } M1 - The matrix that will be cloned and converted
+  * @return { Object } A new matrix with the same dimensions as the input-matrix but with an inverted set of numbers
+  */
   static invert(M1) {
     if(!(M1 instanceof Matrix)) {
       console.log(Matrix.wrong_type_error_message2());
@@ -195,26 +262,69 @@ class Matrix {
     return M2;
   }
 
-  //--/\/\=Most of the non-static functions change the data of the matrix object used as input=/\/\--\\
-
-  //makes the input-matrix a random matrix with number from a given intervall
+/**
+  * Randomizes the elements of a matrix
+  * @param { Number } min - The minimum random number
+  * @param { Number } max - The maximum random number
+  */
   random(min,max) {
     this.data = this.data.map(row => row.map(col => Matrix.randomInt(min || 0,max || 1)));
   }
 
-  //retuns the data of a matrix as an array-object.
+/**
+  * Represents a matrix as a two-dimensional array
+  * @return An array with the elements of the input-matrix
+  */
   toArray() {
     let result = new Array(this.rows);
         result = this.data.splice(0);
         return result;
   }
 
-  //returns the data of a matrix as a string.
+/**
+  * Represents a matrix as a one-dimensional array
+  * @return An array with the elements of the input-matrix
+  */
+  toArray_flat() {
+    let result = [];
+        this.data.forEach(rows => rows.forEach(cols => result.push(cols)));
+        return result;
+  }
+
+/**
+  * Represents a matrix as a string
+  * @return A string with the elements of the input-matrix
+  */
   toString() {
     return this.data.toString();
   }
 
-  //returns the sum of every number of a matrix added up
+/**
+  * Represents a matrix-object as a JSON-file
+  * @return A JSON-file with the elements of the input-matrix-object
+  */
+  serialize() {
+    return JSON.stringify(this);
+  }
+
+/**
+  * Creates a new matrix-object from a JSON-file
+  * @param data - The JSON-file that contains all the necessary information of a matrix-object
+  * @return A new matrix-objet with the information of the JSON-file
+  */
+  static deserialize(data) {
+    if (typeof data == 'string') {
+      data = JSON.parse(data);
+    }
+    let matrix = new Matrix(data.rows, data.cols);
+    matrix.data = data.data;
+    return matrix;
+  }
+
+/**
+  * Creates the sum of all elements of the matrix
+  * @return The sum of all the elements of the input-matrix
+  */
   reduce() {
     if(Array.flatten) {
     return this.data.flatten().reduce();
@@ -229,7 +339,10 @@ class Matrix {
   }
   }
 
-  //maps a function to every element of a matrix
+/**
+  * Maps a function to all elements of the matrix
+  * @param { function } func - The function that will be mapped to the matrix elements
+  */
   map(func) {
     if(typeof func != "function") {
       console.log(Matrix.wrong_type_error_message3());
@@ -238,14 +351,19 @@ class Matrix {
     this.data = this.data.map(rows => rows.map(cols => func(cols)));
   }
 
-  //retuns a copy of the matrix
+/**
+  * Creates a copy of a matrix-object
+  * @return A copy of the input-matrix
+  */
   copy() {
     let result = new Matrix(this.rows,this.cols);
         result.data = this.data.slice(0);
     return result;
   }
 
-  //makes it a unit matrix
+/**
+  * Converts the matrix to a unit-matrix
+  */
   unit() {
     this.data = this.data.map((rows,main_index) => {
       return rows.map((cols,sub_index) => {
@@ -254,7 +372,11 @@ class Matrix {
     });
   }
 
-  //makes it a diagonal matrix with "diagonal_num[bers]" for the diagonal line and "filler [numbers]" for the rest.
+/**
+  * Converts the matrix to a diagonal matrix with custom infill
+  * @param { Number } diagonal_num - The value of the diagonal line
+  * @param { Number } filler - The value that the other elements will have
+  */
   diagonal(diagonal_num,filler) {
     if((diagonal_num != undefined && typeof diagonal_num != "number") || (filler != undefined && typeof filler != "number")) {
       console.log(Matrix.wrong_type_error_message());
@@ -267,7 +389,10 @@ class Matrix {
     });
   }
 
-  //transposes a matrix
+/**
+  * Creates the transposed version of a matrix
+  * @return The transposed matrix
+  */
   transpose() {
     let result = new Matrix(this.cols,this.rows);
     result.data = result.data.map((rows,main_index) => {
@@ -278,12 +403,18 @@ class Matrix {
     return result;
   }
 
-  //inverts every number of the matrix
+/**
+  * Inverts the elements of a matrix
+  */
   invert() {
     this.data = this.data.map(rows => rows.map(cols => cols*-1));
   }
 
-  //adds a [matrix or number] to this matrix.
+/**
+  * Adds elements of another matrix or a number to the initial matrix
+  * @param { Number } Obj - The number that will be added to all elements of the initial matrix
+  * @param { Object } Obj - The matrix whose elements are added to the elements of the initial matrix
+  */
   add(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
@@ -297,7 +428,11 @@ class Matrix {
     console.log(Matrix.wrong_type_error_message());
   }
 
-  //subtracts a [matrix or number] from this matrix.
+/**
+  * Subtracts elements of another matrix or a number from the initial matrix
+  * @param { Number } Obj - The number that will be subtracted from all elements of the initial matrix
+  * @param { Object } Obj - The matrix whose elements are subtracted from the elements of the initial matrix
+  */
   sub(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
@@ -311,7 +446,11 @@ class Matrix {
     console.log(Matrix.wrong_type_error_message());
   }
 
-  //multiplies a [matrix or number] with this matrix.
+/**
+  * Multiplies elements of another matrix or a number with the initial matrix
+  * @param { Number } Obj - The number that will multiply all elements of the initial matrix
+  * @param { Object } Obj - The matrix whose elements multiply the elements of the initial matrix
+  */
   mult(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
@@ -325,7 +464,11 @@ class Matrix {
     console.log(Matrix.wrong_type_error_message());
   }
 
-  //divides a [matrix or number] from this matrix.
+/**
+  * Divides elements of the initial matrix by the elements of another matrix or number
+  * @param { Number } Obj - The number that will divide added to all elements of the initial matrix
+  * @param { Object } Obj - The matrix whose elements divide the elements of the initial matrix
+  */
   div(Obj) {
     if(Obj instanceof Matrix)
     this.data = this.data.map((rows,main_index) => {
