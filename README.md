@@ -22,7 +22,7 @@ the source to the location of the <br>
 <code>AvoMatrix.js</code> file.
 </p>
    
-**You can find the JSDoc Documentation [here](https://Avolord.github.io/AvoMatrix/AvoMatrix.html)<br>
+**You can find the Documentation.js Documentation** [here](https://avolord.github.io/AvoMatrix/)<br>
 
 **Meta**
 
