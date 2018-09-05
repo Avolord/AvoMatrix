@@ -22,169 +22,580 @@ the source to the location of the <br>
 <code>AvoMatrix.js</code> file.
 </p>
 
-# <a name="doc"></a>Documentation
+### Table of Contents
 
-### <a name="table_of_contents"></a>Table of contents
-* [Initializing a Matrix-object](#init)
-* [Addition, Subtraction, Multiplication and Division](#standard_operations)
-* [Standard Matrix multiplication](#matrix_product)
-* [Diagonal Matrix](#diag)
-* [Randomized Matrix](#rand)
-* [Mapping](#map)
-* [Copying](#copy)
-* [Transpose a Matrix](#transpose)
-* [Logging a Matrix to the console](#logging)
-* [Converting a Matrix-object](#convert)
+-   [Matrix_Class_Error_Message][1]
+-   [Matrix_Class_Error_Message][2]
+-   [Matrix][3]
+    -   [Parameters][4]
+    -   [show][5]
+    -   [dim][6]
+    -   [random][7]
+        -   [Parameters][8]
+    -   [toArray][9]
+    -   [toArray_flat][10]
+    -   [toString][11]
+    -   [serialize][12]
+    -   [reduce][13]
+    -   [map][14]
+        -   [Parameters][15]
+    -   [row_map][16]
+        -   [Parameters][17]
+    -   [col_map][18]
+        -   [Parameters][19]
+    -   [copy][20]
+    -   [unit][21]
+    -   [diagonal][22]
+        -   [Parameters][23]
+    -   [fill][24]
+        -   [Parameters][25]
+    -   [transpose][26]
+    -   [invert][27]
+    -   [add][28]
+        -   [Parameters][29]
+    -   [sub][30]
+        -   [Parameters][31]
+    -   [mult][32]
+        -   [Parameters][33]
+    -   [div][34]
+        -   [Parameters][35]
+    -   [triangle][36]
+        -   [Parameters][37]
+    -   [isTriangle][38]
+    -   [hasEmpty][39]
+    -   [determinant][40]
+        -   [Parameters][41]
+    -   [solveLGS][42]
+        -   [Parameters][43]
+    -   [Error_Message][44]
+    -   [randomInt][45]
+        -   [Parameters][46]
+    -   [array_mult][47]
+        -   [Parameters][48]
+    -   [fromArray][49]
+        -   [Parameters][50]
+    -   [diagonal][51]
+        -   [Parameters][52]
+    -   [random][53]
+        -   [Parameters][54]
+    -   [map][55]
+        -   [Parameters][56]
+    -   [add][57]
+        -   [Parameters][58]
+    -   [sub][59]
+        -   [Parameters][60]
+    -   [mult][61]
+        -   [Parameters][62]
+    -   [div][63]
+        -   [Parameters][64]
+    -   [prod][65]
+        -   [Parameters][66]
+    -   [invert][67]
+        -   [Parameters][68]
+    -   [deserialize][69]
+        -   [Parameters][70]
 
-### <a name="init"></a>Initializing a Matrix-object
+## Matrix_Class_Error_Message
 
-Everything is 0-indexed! <br>
-An uninitialized matrix will have <br>
-<code>3 rows</code> and <code>3 columns</code> and will <br>
-contain just zeroes
+Performs simple matrix math
 
-<pre>
-<span>//new Matrix(<code>rows</code>,<code>columns</code>,<code>fill</code>)
-<span>let mat = new Matrix(3,3,0);</span>
-</pre>
+**Meta**
 
-The numbers that the matrix holds are saved in the
-<br><code>.data</code> array of the <code>Matrix</code> object.
+-   **version**: 1.0.0
+-   **author**: AvoLord
 
-There are other ways of initializing a Matrix like: <br>
-<code>fromArray(array)</code> and <code>deserialize(data)</code>
+## Matrix_Class_Error_Message
 
-#### fromArray(array)
-<pre>
-<span>let array = [[1,0,0]
-             [0,1,0]
-             [0,0,1]];</span>
-            
-<span>let mat = Matrix.fromArray(array);</span>
-</pre>
+Sets the Error-messages and the state
 
-#### deserialize(data) and serialize()
+## Matrix
 
-The deserialize function creates a Matrix-object <br>
-from a JSON file that contains all necessary <br>
-information of the Matrix. To Obtain such a JSON file <br>
-you can <code>.serialize()</code> an existing Matrix-object <br>
-or write it yourself. <br>
-**The syntax is: "{"cols":,"rows":,"data":[  ]"}"**
+Creates a new matrix-object with given rows, columns and fill
 
-<pre>
-<span>let mat = new Matrix();</span>
-<span>let ser_mat = mat.serialize();</span>
+### Parameters
 
-<span>//ser_mat = "{"cols":3,"rows":3,"data":[[0,0,0],[0,0,0],[0,0,0]]}"</span>
+-   `rows` **[Number][71]** The amount of rows of the matrix
+-   `columns` **[Number][71]** The amount of columns of the matrix
+-   `fill` **[Number][71]** The number with wich the matrix will be filled
 
-<span>let mat2 = Matrix.deserialize(ser_mat);</span>
-<span>//mat2 is identical to mat</span>
-</pre>
+### show
 
-### <a name="standard_operations"></a>Addition, Subtraction, Multiplication and Division
+Shows the contents of the matrix in the console
 
-Operations like subtraction, addition, multiplication <br>
-and division can be performed with : <br>
-<code>.sub()</code> 
-<code>.add()</code> 
-<code>.mult()</code> 
-<code>.div()</code> <br>
+### dim
 
-**<code>.mult()</code> does not mean standard matrix multiplication
-<br>
-It multiplies every element of MatrixA with the <br>
-corresponding element of MatrixB or a Number.**
-<br>
+Returns the dimensions of the matrix
 
-### <a name="matrix_product"></a>Standard Matrix multiplication
+Returns **[Array][72]** Dimensions [rows, columns]
 
-To use standard matrix multiplication you have to use
-<code>Matrix.prod(MatrixA,MatrixB)</code><br>
-<pre>
-<span>let mat1 = new Matrix(3,2);</span>
-<span>let mat2 = new Matrix(2,3);</span>
+### random
 
-<span>//Matrix.prod(<code>MatrixA</code>,<code>MatrixB</code>)
-<span>let mat3 = Matrix.prod(mat1,mat2);</span>
-</pre>
+Randomizes the elements of a matrix
 
-### <a name="diag"></a>Diagonal Matrix
+#### Parameters
 
-The function <code>.diag(diagonal,fill)</code> transforms a <br>
-Matrix to a diagonal Matrix with a custom diagonal line <br>
-and a custom fill for the rest of the Matrix.
+-   `min` **[Number][71]** The minimum random number
+-   `max` **[Number][71]** The maximum random number
 
-<pre>
-<span>let m1 = new Matrix();</span>
-<span>         m1.diag(1,0);</span>
-<span>
-//m1 = 
-//[[1,0,0]
-// [0,1,0]
-// [0,0,1]];</span>
-</pre>
+### toArray
 
-### <a name="rand"></a>Randomized Matrix
+Represents a matrix as a two-dimensional array
 
-The function <code>.random(min,max)</code> randomizes <br>
-the numbers of the Matrix ranging from <code>min</code> to <code>max</code>.
+Returns **any** An array with the elements of the input-matrix
 
-<pre>
-<span>let m1 = new Matrix();</span>
-<span>         m1.random(0,3);</span>
-<span>
-//!!Just one of many possibilities!!
-//m1 = 
-//[[1,3,2]
-// [2,1,2]
-// [1,3,1]];</span>
-</pre>
+### toArray_flat
 
-### <a name="map"></a>Mapping
+Represents a matrix as a one-dimensional array
 
-The function <code>.map(function)</code> maps a <br>
-<code>function</code> to all elements of the Matrix.
+Returns **any** An array with the elements of the input-matrix
 
-<pre>
-<span>let m1    = new Matrix(3,3,1);</span>
-<span>let func  = (input) => input*2;</span>
-<span>            m1.map(func);
-<span>
-//m1 = 
-//[[2,2,2]
-// [2,2,2]
-// [2,2,2]];</span>
-</pre>
+### toString
 
-### <a name="copy"></a>Copying
+Represents a matrix as a string
 
-The function <code>.copy()</code> copies <br>
-a Matrix and returns a "clone".<br>
-This may be necessary if you want to work<br>
-with your Matrix but do not want to change it<br>
-or if you do not want to use <code>static</code> functions.
+Returns **any** A string with the elements of the input-matrix
 
-### <a name="transpose"></a>Transpose a Matrix
+### serialize
 
-The function <code>.transpose()</code> transposes <br>
-a Matrix and returns it. <br>
-**This non-static function will not alter your <br>
-Input-matrix**
+Represents a matrix-object as a JSON-file
 
-<pre>
-<span>let m1 = new Matrix(2,3);</span>
-<span>         m1.random(0,3);</span>
-<span>let m2 = m1.transpose();
-//m1 = 
-//[[1,3,3]
-// [2,1,2]];</span>
-<span>
-//m2 = 
-//[[1,2]
-// [3,1]
-// [3,2]];</span>
-</pre>
+Returns **any** A JSON-file with the elements of the input-matrix-object
 
-### <a name="logging"></a>Logging a Matrix to the console
-Matrices can be logged to the console with <code>.show()</code>
+### reduce
+
+Creates the sum of all elements of the matrix
+
+Returns **any** The sum of all the elements of the input-matrix
+
+### map
+
+Maps a function to all elements of the matrix
+
+#### Parameters
+
+-   `func` **[function][73]** The function that will be mapped to the matrix elements
+
+### row_map
+
+Maps a function to a specific row of elements of the matrix
+
+#### Parameters
+
+-   `row` **[Number][71]** The targeted row
+-   `func` **[function][73]** The function that will be mapped to the matrix elements
+
+### col_map
+
+Maps a function to a specific collumn of elements of the matrix
+
+#### Parameters
+
+-   `col` **[Number][71]** The targeted collumn
+-   `func` **[function][73]** The function that will be mapped to the matrix elements
+
+### copy
+
+Creates a copy of a matrix-object
+
+Returns **any** A copy of the input-matrix
+
+### unit
+
+Converts the matrix to a unit-matrix
+
+### diagonal
+
+Converts the matrix to a diagonal matrix with custom infill
+
+#### Parameters
+
+-   `diagonal_num` **[Number][71]** The value of the diagonal line
+-   `filler` **[Number][71]** The value that the other elements will have
+
+### fill
+
+Fills the matrix with a specified number
+
+#### Parameters
+
+-   `filler` **[Number][71]** the number with wich the matrix will be filled
+
+### transpose
+
+Creates the transposed version of a matrix
+
+Returns **any** The transposed matrix
+
+### invert
+
+Inverts the elements of a matrix
+
+### add
+
+Adds elements of another matrix or a number to the initial matrix
+
+#### Parameters
+
+-   `Obj` **[Object][74]** The matrix whose elements are added to the elements of the initial matrix
+
+### sub
+
+Subtracts elements of another matrix or a number from the initial matrix
+
+#### Parameters
+
+-   `Obj` **[Object][74]** The matrix whose elements are subtracted from the elements of the initial matrix
+
+### mult
+
+Multiplies elements of another matrix or a number with the initial matrix
+
+#### Parameters
+
+-   `Obj` **[Object][74]** The matrix whose elements multiply the elements of the initial matrix
+
+### div
+
+Divides elements of the initial matrix by the elements of another matrix or number
+
+#### Parameters
+
+-   `Obj` **[Object][74]** The matrix whose elements divide the elements of the initial matrix
+
+### triangle
+
+Transforms a matrix to a "triangle-form"
+
+#### Parameters
+
+-   `above` **[Boolean][75]** Converts the upper-right corner (optional, default `true`)
+-   `below` **[Boolean][75]** Converts the lower-left corner (optional, default `false`)
+
+### isTriangle
+
+Checks if a matrix is in a "triangle-form"
+
+Returns **[Boolean][75]** Matrix is in triangle-form
+
+### hasEmpty
+
+Checks if a matrix has empty rows or collumns
+
+Returns **[Boolean][75]** Matrix has empty rows or collumns
+
+### determinant
+
+Calculates the determinant of a matrix
+
+#### Parameters
+
+-   `iterations` **[Number][71]** The amount of recursion that occurred (optional, default `0`)
+
+Returns **[Number][71]** the determinant of the matrix
+
+### solveLGS
+
+Solves a system of linear equations represented as a matrix
+
+#### Parameters
+
+-   `iterations` **[Number][71]** The amount of recursion that occurred
+
+Returns **[Array][72]** The solved variables
+
+### Error_Message
+
+Toggels if Error messages are displayed
+
+### randomInt
+
+Creates a random Integer
+
+#### Parameters
+
+-   `min` **[Number][71]** The minimum random number
+-   `max` **[Number][71]** The maximum random number
+
+Returns **[Number][71]** A random number between min and max
+
+### array_mult
+
+The scalar-multiplication of two arrays seen as vectors
+
+#### Parameters
+
+-   `a1` **[Object][74]** The first  array / vector
+-   `a2` **[Object][74]** The second array / vector
+
+Returns **[Object][74]** The scalar-product of two "vectors"
+
+### fromArray
+
+Creates matrix-object from a two-dimensional array
+
+#### Parameters
+
+-   `array` **[Object][74]** The array that will be converted to a matrix
+
+Returns **[Object][74]** A new matrix-object with the values form the array
+
+### diagonal
+
+Creates a diagnonal matrix-object
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+-   `diagonal_num`
+-   `filler` **[Number][71]** The number that will fill the result
+-   `diagnonal_num` **[Number][71]** The number that will fill the diagonal line
+
+Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with a new set of numbers
+
+### random
+
+Creates a matrix-object with random numbers
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+-   `min` **[Number][71]** The minimum random number
+-   `max` **[Number][71]** The maximum random number
+
+Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with random numbers randing form min to max
+
+### map
+
+Creates a matrix on which a function has been mapped to
+
+#### Parameters
+
+-   `M1` **[Object][74]** The Matrix that will be cloned and converted
+-   `func` **[function][73]** The function that will alter the elements of the matrix
+
+Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with a new set of numbers
+
+### add
+
+Creates a new matrix from the sum of the elements of two matrices or a matrix and a number
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+-   `Obj` **[Object][74]** The matrix whose elements will be added to the elements of M1
+
+Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+
+### sub
+
+Creates a new matrix from the difference of the elements of two matrices or a matrix and a number
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+-   `Obj` **[Object][74]** The matrix whose elements will be subtracted from the elements of M1
+
+Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+
+### mult
+
+Creates a new matrix from the product of the elements of two matrices or a matrix and a number
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+-   `Obj` **[Object][74]** The matrix whose elements will be multiplied by the elements of M1
+
+Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+
+### div
+
+Creates a new matrix from the division of the elements of two matrices or a matrix and a number
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+-   `Obj` **[Object][74]** The matrix whose elements will be divided by the elements of M1
+
+Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+
+### prod
+
+Creates a new matrix from the multiplication of two matrices
+
+#### Parameters
+
+-   `M1` **[Object][74]** The first matrix
+-   `M2` **[Object][74]** The second matrix that will be multiplied with the first
+
+Returns **[Object][74]** The Product of the matrix multiplication
+
+### invert
+
+Creates a new matrix whose values are inverted
+
+#### Parameters
+
+-   `M1` **[Object][74]** The matrix that will be cloned and converted
+
+Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with an inverted set of numbers
+
+### deserialize
+
+Creates a new matrix-object from a JSON-file
+
+#### Parameters
+
+-   `data`  The JSON-file that contains all the necessary information of a matrix-object
+
+Returns **any** A new matrix-objet with the information of the JSON-file
+
+[1]: #matrix_class_error_message
+
+[2]: #matrix_class_error_message-1
+
+[3]: #matrix
+
+[4]: #parameters
+
+[5]: #show
+
+[6]: #dim
+
+[7]: #random
+
+[8]: #parameters-1
+
+[9]: #toarray
+
+[10]: #toarray_flat
+
+[11]: #tostring
+
+[12]: #serialize
+
+[13]: #reduce
+
+[14]: #map
+
+[15]: #parameters-2
+
+[16]: #row_map
+
+[17]: #parameters-3
+
+[18]: #col_map
+
+[19]: #parameters-4
+
+[20]: #copy
+
+[21]: #unit
+
+[22]: #diagonal
+
+[23]: #parameters-5
+
+[24]: #fill
+
+[25]: #parameters-6
+
+[26]: #transpose
+
+[27]: #invert
+
+[28]: #add
+
+[29]: #parameters-7
+
+[30]: #sub
+
+[31]: #parameters-8
+
+[32]: #mult
+
+[33]: #parameters-9
+
+[34]: #div
+
+[35]: #parameters-10
+
+[36]: #triangle
+
+[37]: #parameters-11
+
+[38]: #istriangle
+
+[39]: #hasempty
+
+[40]: #determinant
+
+[41]: #parameters-12
+
+[42]: #solvelgs
+
+[43]: #parameters-13
+
+[44]: #error_message
+
+[45]: #randomint
+
+[46]: #parameters-14
+
+[47]: #array_mult
+
+[48]: #parameters-15
+
+[49]: #fromarray
+
+[50]: #parameters-16
+
+[51]: #diagonal-1
+
+[52]: #parameters-17
+
+[53]: #random-1
+
+[54]: #parameters-18
+
+[55]: #map-1
+
+[56]: #parameters-19
+
+[57]: #add-1
+
+[58]: #parameters-20
+
+[59]: #sub-1
+
+[60]: #parameters-21
+
+[61]: #mult-1
+
+[62]: #parameters-22
+
+[63]: #div-1
+
+[64]: #parameters-23
+
+[65]: #prod
+
+[66]: #parameters-24
+
+[67]: #invert-1
+
+[68]: #parameters-25
+
+[69]: #deserialize
+
+[70]: #parameters-26
+
+[71]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[72]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[73]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[74]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[75]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
