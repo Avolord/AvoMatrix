@@ -22,580 +22,515 @@ the source to the location of the <br>
 <code>AvoMatrix.js</code> file.
 </p>
 
-### Table of Contents
-
--   [Matrix_Class_Error_Message][1]
--   [Matrix_Class_Error_Message][2]
--   [Matrix][3]
-    -   [Parameters][4]
-    -   [show][5]
-    -   [dim][6]
-    -   [random][7]
-        -   [Parameters][8]
-    -   [toArray][9]
-    -   [toArray_flat][10]
-    -   [toString][11]
-    -   [serialize][12]
-    -   [reduce][13]
-    -   [map][14]
-        -   [Parameters][15]
-    -   [row_map][16]
-        -   [Parameters][17]
-    -   [col_map][18]
-        -   [Parameters][19]
-    -   [copy][20]
-    -   [unit][21]
-    -   [diagonal][22]
-        -   [Parameters][23]
-    -   [fill][24]
-        -   [Parameters][25]
-    -   [transpose][26]
-    -   [invert][27]
-    -   [add][28]
-        -   [Parameters][29]
-    -   [sub][30]
-        -   [Parameters][31]
-    -   [mult][32]
-        -   [Parameters][33]
-    -   [div][34]
-        -   [Parameters][35]
-    -   [triangle][36]
-        -   [Parameters][37]
-    -   [isTriangle][38]
-    -   [hasEmpty][39]
-    -   [determinant][40]
-        -   [Parameters][41]
-    -   [solveLGS][42]
-        -   [Parameters][43]
-    -   [Error_Message][44]
-    -   [randomInt][45]
-        -   [Parameters][46]
-    -   [array_mult][47]
-        -   [Parameters][48]
-    -   [fromArray][49]
-        -   [Parameters][50]
-    -   [diagonal][51]
-        -   [Parameters][52]
-    -   [random][53]
-        -   [Parameters][54]
-    -   [map][55]
-        -   [Parameters][56]
-    -   [add][57]
-        -   [Parameters][58]
-    -   [sub][59]
-        -   [Parameters][60]
-    -   [mult][61]
-        -   [Parameters][62]
-    -   [div][63]
-        -   [Parameters][64]
-    -   [prod][65]
-        -   [Parameters][66]
-    -   [invert][67]
-        -   [Parameters][68]
-    -   [deserialize][69]
-        -   [Parameters][70]
-
-## Matrix_Class_Error_Message
-
-Performs simple matrix math
-
 **Meta**
 
 -   **version**: 1.0.0
 -   **author**: AvoLord
 
-## Matrix_Class_Error_Message
+## Classes
 
-Sets the Error-messages and the state
+<dl>
+<dt><a href="#Matrix">Matrix</a></dt>
+<dd><p>Creates a new matrix-object with given rows, columns and fill</p>
+</dd>
+</dl>
+
+## Members
+
+<dl>
+<dt><a href="#Matrix_Class_Error_Message">Matrix_Class_Error_Message</a></dt>
+<dd><p>Sets the Error-messages and the state</p>
+</dd>
+</dl>
+
+<a name="Matrix"></a>
 
 ## Matrix
-
 Creates a new matrix-object with given rows, columns and fill
 
-### Parameters
+**Kind**: global class
 
--   `rows` **[Number][71]** The amount of rows of the matrix
--   `columns` **[Number][71]** The amount of columns of the matrix
--   `fill` **[Number][71]** The number with wich the matrix will be filled
+* [Matrix](#Matrix)
+    * [new Matrix(rows, columns, fill)](#new_Matrix_new)
+    * _instance_
+        * [.show()](#Matrix+show)
+        * [.dim()](#Matrix+dim) ⇒ <code>Array</code>
+        * [.random(min, max)](#Matrix+random)
+        * [.toArray()](#Matrix+toArray) ⇒
+        * [.toArray_flat()](#Matrix+toArray_flat) ⇒
+        * [.toString()](#Matrix+toString) ⇒
+        * [.serialize()](#Matrix+serialize) ⇒
+        * [.reduce()](#Matrix+reduce) ⇒
+        * [.map(func)](#Matrix+map)
+        * [.row_map(row, func)](#Matrix+row_map)
+        * [.col_map(col, func)](#Matrix+col_map)
+        * [.copy()](#Matrix+copy) ⇒
+        * [.unit()](#Matrix+unit)
+        * [.diagonal(diagonal_num, filler)](#Matrix+diagonal)
+        * [.fill(filler)](#Matrix+fill)
+        * [.transpose()](#Matrix+transpose) ⇒
+        * [.invert()](#Matrix+invert)
+        * [.add(Obj, Obj)](#Matrix+add)
+        * [.sub(Obj, Obj)](#Matrix+sub)
+        * [.mult(Obj, Obj)](#Matrix+mult)
+        * [.div(Obj, Obj)](#Matrix+div)
+        * [.triangle(above, below)](#Matrix+triangle)
+        * [.isTriangle()](#Matrix+isTriangle) ⇒ <code>Boolean</code>
+        * [.hasEmpty()](#Matrix+hasEmpty) ⇒ <code>Boolean</code>
+        * [.determinant(iterations)](#Matrix+determinant) ⇒ <code>Number</code>
+        * [.solveLGS(iterations)](#Matrix+solveLGS) ⇒ <code>Array</code>
+    * _static_
+        * [.Error_Message()](#Matrix.Error_Message)
+        * [.randomInt(min, max)](#Matrix.randomInt) ⇒ <code>Number</code>
+        * [.array_mult(a1, a2)](#Matrix.array_mult) ⇒ <code>Object</code>
+        * [.fromArray(array)](#Matrix.fromArray) ⇒ <code>Object</code>
+        * [.diagonal(M1, diagnonal_num, filler)](#Matrix.diagonal) ⇒ <code>Object</code>
+        * [.random(M1, min, max)](#Matrix.random) ⇒ <code>Object</code>
+        * [.map(M1, func)](#Matrix.map) ⇒ <code>Object</code>
+        * [.add(M1, Obj, Obj)](#Matrix.add) ⇒ <code>Object</code>
+        * [.sub(M1, Obj, Obj)](#Matrix.sub) ⇒ <code>Object</code>
+        * [.mult(M1, Obj, Obj)](#Matrix.mult) ⇒ <code>Object</code>
+        * [.div(M1, Obj, Obj)](#Matrix.div) ⇒ <code>Object</code>
+        * [.prod(M1, M2)](#Matrix.prod) ⇒ <code>Object</code>
+        * [.invert(M1)](#Matrix.invert) ⇒ <code>Object</code>
+        * [.deserialize(data)](#Matrix.deserialize) ⇒
 
-### show
+<a name="new_Matrix_new"></a>
 
+### new Matrix(rows, columns, fill)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| rows | <code>Number</code> | The amount of rows of the matrix |
+| columns | <code>Number</code> | The amount of columns of the matrix |
+| fill | <code>Number</code> | The number with wich the matrix will be filled |
+
+<a name="Matrix+show"></a>
+
+### matrix.show()
 Shows the contents of the matrix in the console
 
-### dim
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+<a name="Matrix+dim"></a>
 
+### matrix.dim() ⇒ <code>Array</code>
 Returns the dimensions of the matrix
 
-Returns **[Array][72]** Dimensions [rows, columns]
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Array</code> - - Dimensions [rows, columns]
+<a name="Matrix+random"></a>
 
-### random
-
+### matrix.random(min, max)
 Randomizes the elements of a matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `min` **[Number][71]** The minimum random number
--   `max` **[Number][71]** The maximum random number
+| Param | Type | Description |
+| --- | --- | --- |
+| min | <code>Number</code> | The minimum random number |
+| max | <code>Number</code> | The maximum random number |
 
-### toArray
+<a name="Matrix+toArray"></a>
 
+### matrix.toArray() ⇒
 Represents a matrix as a two-dimensional array
 
-Returns **any** An array with the elements of the input-matrix
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: An array with the elements of the input-matrix
+<a name="Matrix+toArray_flat"></a>
 
-### toArray_flat
-
+### matrix.toArray_flat() ⇒
 Represents a matrix as a one-dimensional array
 
-Returns **any** An array with the elements of the input-matrix
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: An array with the elements of the input-matrix
+<a name="Matrix+toString"></a>
 
-### toString
-
+### matrix.toString() ⇒
 Represents a matrix as a string
 
-Returns **any** A string with the elements of the input-matrix
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: A string with the elements of the input-matrix
+<a name="Matrix+serialize"></a>
 
-### serialize
-
+### matrix.serialize() ⇒
 Represents a matrix-object as a JSON-file
 
-Returns **any** A JSON-file with the elements of the input-matrix-object
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: A JSON-file with the elements of the input-matrix-object
+<a name="Matrix+reduce"></a>
 
-### reduce
-
+### matrix.reduce() ⇒
 Creates the sum of all elements of the matrix
 
-Returns **any** The sum of all the elements of the input-matrix
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: The sum of all the elements of the input-matrix
+<a name="Matrix+map"></a>
 
-### map
-
+### matrix.map(func)
 Maps a function to all elements of the matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `func` **[function][73]** The function that will be mapped to the matrix elements
+| Param | Type | Description |
+| --- | --- | --- |
+| func | <code>function</code> | The function that will be mapped to the matrix elements |
 
-### row_map
+<a name="Matrix+row_map"></a>
 
+### matrix.row_map(row, func)
 Maps a function to a specific row of elements of the matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `row` **[Number][71]** The targeted row
--   `func` **[function][73]** The function that will be mapped to the matrix elements
+| Param | Type | Description |
+| --- | --- | --- |
+| row | <code>Number</code> | The targeted row |
+| func | <code>function</code> | The function that will be mapped to the matrix elements |
 
-### col_map
+<a name="Matrix+col_map"></a>
 
+### matrix.col_map(col, func)
 Maps a function to a specific collumn of elements of the matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `col` **[Number][71]** The targeted collumn
--   `func` **[function][73]** The function that will be mapped to the matrix elements
+| Param | Type | Description |
+| --- | --- | --- |
+| col | <code>Number</code> | The targeted collumn |
+| func | <code>function</code> | The function that will be mapped to the matrix elements |
 
-### copy
+<a name="Matrix+copy"></a>
 
+### matrix.copy() ⇒
 Creates a copy of a matrix-object
 
-Returns **any** A copy of the input-matrix
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: A copy of the input-matrix
+<a name="Matrix+unit"></a>
 
-### unit
-
+### matrix.unit()
 Converts the matrix to a unit-matrix
 
-### diagonal
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+<a name="Matrix+diagonal"></a>
 
+### matrix.diagonal(diagonal_num, filler)
 Converts the matrix to a diagonal matrix with custom infill
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `diagonal_num` **[Number][71]** The value of the diagonal line
--   `filler` **[Number][71]** The value that the other elements will have
+| Param | Type | Description |
+| --- | --- | --- |
+| diagonal_num | <code>Number</code> | The value of the diagonal line |
+| filler | <code>Number</code> | The value that the other elements will have |
 
-### fill
+<a name="Matrix+fill"></a>
 
+### matrix.fill(filler)
 Fills the matrix with a specified number
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `filler` **[Number][71]** the number with wich the matrix will be filled
+| Param | Type | Description |
+| --- | --- | --- |
+| filler | <code>Number</code> | the number with wich the matrix will be filled |
 
-### transpose
+<a name="Matrix+transpose"></a>
 
+### matrix.transpose() ⇒
 Creates the transposed version of a matrix
 
-Returns **any** The transposed matrix
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: The transposed matrix
+<a name="Matrix+invert"></a>
 
-### invert
-
+### matrix.invert()
 Inverts the elements of a matrix
 
-### add
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+<a name="Matrix+add"></a>
 
+### matrix.add(Obj, Obj)
 Adds elements of another matrix or a number to the initial matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `Obj` **[Object][74]** The matrix whose elements are added to the elements of the initial matrix
+| Param | Type | Description |
+| --- | --- | --- |
+| Obj | <code>Number</code> | The number that will be added to all elements of the initial matrix |
+| Obj | <code>Object</code> | The matrix whose elements are added to the elements of the initial matrix |
 
-### sub
+<a name="Matrix+sub"></a>
 
+### matrix.sub(Obj, Obj)
 Subtracts elements of another matrix or a number from the initial matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `Obj` **[Object][74]** The matrix whose elements are subtracted from the elements of the initial matrix
+| Param | Type | Description |
+| --- | --- | --- |
+| Obj | <code>Number</code> | The number that will be subtracted from all elements of the initial matrix |
+| Obj | <code>Object</code> | The matrix whose elements are subtracted from the elements of the initial matrix |
 
-### mult
+<a name="Matrix+mult"></a>
 
+### matrix.mult(Obj, Obj)
 Multiplies elements of another matrix or a number with the initial matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `Obj` **[Object][74]** The matrix whose elements multiply the elements of the initial matrix
+| Param | Type | Description |
+| --- | --- | --- |
+| Obj | <code>Number</code> | The number that will multiply all elements of the initial matrix |
+| Obj | <code>Object</code> | The matrix whose elements multiply the elements of the initial matrix |
 
-### div
+<a name="Matrix+div"></a>
 
+### matrix.div(Obj, Obj)
 Divides elements of the initial matrix by the elements of another matrix or number
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `Obj` **[Object][74]** The matrix whose elements divide the elements of the initial matrix
+| Param | Type | Description |
+| --- | --- | --- |
+| Obj | <code>Number</code> | The number that will divide added to all elements of the initial matrix |
+| Obj | <code>Object</code> | The matrix whose elements divide the elements of the initial matrix |
 
-### triangle
+<a name="Matrix+triangle"></a>
 
+### matrix.triangle(above, below)
 Transforms a matrix to a "triangle-form"
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
 
--   `above` **[Boolean][75]** Converts the upper-right corner (optional, default `true`)
--   `below` **[Boolean][75]** Converts the lower-left corner (optional, default `false`)
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| above | <code>Boolean</code> | <code>true</code> | Converts the upper-right corner |
+| below | <code>Boolean</code> | <code>false</code> | Converts the lower-left corner |
 
-### isTriangle
+<a name="Matrix+isTriangle"></a>
 
+### matrix.isTriangle() ⇒ <code>Boolean</code>
 Checks if a matrix is in a "triangle-form"
 
-Returns **[Boolean][75]** Matrix is in triangle-form
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Boolean</code> - - Matrix is in triangle-form
+<a name="Matrix+hasEmpty"></a>
 
-### hasEmpty
-
+### matrix.hasEmpty() ⇒ <code>Boolean</code>
 Checks if a matrix has empty rows or collumns
 
-Returns **[Boolean][75]** Matrix has empty rows or collumns
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Boolean</code> - - Matrix has empty rows or collumns
+<a name="Matrix+determinant"></a>
 
-### determinant
-
+### matrix.determinant(iterations) ⇒ <code>Number</code>
 Calculates the determinant of a matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Number</code> - the determinant of the matrix
+**//**: WARNING: Do not enter a @param { Number } iterations because that is just for recursion purposes!
 
--   `iterations` **[Number][71]** The amount of recursion that occurred (optional, default `0`)
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| iterations | <code>Number</code> | <code>0</code> | The amount of recursion that occurred |
 
-Returns **[Number][71]** the determinant of the matrix
+<a name="Matrix+solveLGS"></a>
 
-### solveLGS
-
+### matrix.solveLGS(iterations) ⇒ <code>Array</code>
 Solves a system of linear equations represented as a matrix
 
-#### Parameters
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Array</code> - The solved variables
+**//**: WARNING: Work In Progress
+**//**: WARNING: Do not enter a @param { Number } iterations because that is just for recursion purposes!
 
--   `iterations` **[Number][71]** The amount of recursion that occurred
+| Param | Type | Description |
+| --- | --- | --- |
+| iterations | <code>Number</code> | The amount of recursion that occurred |
 
-Returns **[Array][72]** The solved variables
+<a name="Matrix.Error_Message"></a>
 
-### Error_Message
-
+### Matrix.Error_Message()
 Toggels if Error messages are displayed
 
-### randomInt
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+<a name="Matrix.randomInt"></a>
 
+### Matrix.randomInt(min, max) ⇒ <code>Number</code>
 Creates a random Integer
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Number</code> - - A random number between min and max
 
--   `min` **[Number][71]** The minimum random number
--   `max` **[Number][71]** The maximum random number
+| Param | Type | Description |
+| --- | --- | --- |
+| min | <code>Number</code> | The minimum random number |
+| max | <code>Number</code> | The maximum random number |
 
-Returns **[Number][71]** A random number between min and max
+<a name="Matrix.array_mult"></a>
 
-### array_mult
-
+### Matrix.array_mult(a1, a2) ⇒ <code>Object</code>
 The scalar-multiplication of two arrays seen as vectors
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - The scalar-product of two "vectors"
 
--   `a1` **[Object][74]** The first  array / vector
--   `a2` **[Object][74]** The second array / vector
+| Param | Type | Description |
+| --- | --- | --- |
+| a1 | <code>Object</code> | The first  array / vector |
+| a2 | <code>Object</code> | The second array / vector |
 
-Returns **[Object][74]** The scalar-product of two "vectors"
+<a name="Matrix.fromArray"></a>
 
-### fromArray
-
+### Matrix.fromArray(array) ⇒ <code>Object</code>
 Creates matrix-object from a two-dimensional array
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new matrix-object with the values form the array
 
--   `array` **[Object][74]** The array that will be converted to a matrix
+| Param | Type | Description |
+| --- | --- | --- |
+| array | <code>Object</code> | The array that will be converted to a matrix |
 
-Returns **[Object][74]** A new matrix-object with the values form the array
+<a name="Matrix.diagonal"></a>
 
-### diagonal
-
+### Matrix.diagonal(M1, diagnonal_num, filler) ⇒ <code>Object</code>
 Creates a diagnonal matrix-object
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new matrix with the same dimensions as the input-matrix but with a new set of numbers
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
--   `diagonal_num`
--   `filler` **[Number][71]** The number that will fill the result
--   `diagnonal_num` **[Number][71]** The number that will fill the diagonal line
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
+| diagnonal_num | <code>Number</code> | The number that will fill the diagonal line |
+| filler | <code>Number</code> | The number that will fill the result |
 
-Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with a new set of numbers
+<a name="Matrix.random"></a>
 
-### random
-
+### Matrix.random(M1, min, max) ⇒ <code>Object</code>
 Creates a matrix-object with random numbers
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new matrix with the same dimensions as the input-matrix but with random numbers randing form min to max
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
--   `min` **[Number][71]** The minimum random number
--   `max` **[Number][71]** The maximum random number
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
+| min | <code>Number</code> | The minimum random number |
+| max | <code>Number</code> | The maximum random number |
 
-Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with random numbers randing form min to max
+<a name="Matrix.map"></a>
 
-### map
-
+### Matrix.map(M1, func) ⇒ <code>Object</code>
 Creates a matrix on which a function has been mapped to
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new matrix with the same dimensions as the input-matrix but with a new set of numbers
 
--   `M1` **[Object][74]** The Matrix that will be cloned and converted
--   `func` **[function][73]** The function that will alter the elements of the matrix
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The Matrix that will be cloned and converted |
+| func | <code>function</code> | The function that will alter the elements of the matrix |
 
-Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with a new set of numbers
+<a name="Matrix.add"></a>
 
-### add
-
+### Matrix.add(M1, Obj, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the sum of the elements of two matrices or a matrix and a number
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
--   `Obj` **[Object][74]** The matrix whose elements will be added to the elements of M1
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
+| Obj | <code>Number</code> | The number that will be added to all elements of the matrix |
+| Obj | <code>Object</code> | The matrix whose elements will be added to the elements of M1 |
 
-Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+<a name="Matrix.sub"></a>
 
-### sub
-
+### Matrix.sub(M1, Obj, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the difference of the elements of two matrices or a matrix and a number
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
--   `Obj` **[Object][74]** The matrix whose elements will be subtracted from the elements of M1
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
+| Obj | <code>Number</code> | The number that will be subtracted from all elements of the matrix |
+| Obj | <code>Object</code> | The matrix whose elements will be subtracted from the elements of M1 |
 
-Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+<a name="Matrix.mult"></a>
 
-### mult
-
+### Matrix.mult(M1, Obj, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the product of the elements of two matrices or a matrix and a number
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
--   `Obj` **[Object][74]** The matrix whose elements will be multiplied by the elements of M1
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
+| Obj | <code>Number</code> | The number that will be multiplied with all elements of the matrix |
+| Obj | <code>Object</code> | The matrix whose elements will be multiplied by the elements of M1 |
 
-Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+<a name="Matrix.div"></a>
 
-### div
-
+### Matrix.div(M1, Obj, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the division of the elements of two matrices or a matrix and a number
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
--   `Obj` **[Object][74]** The matrix whose elements will be divided by the elements of M1
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
+| Obj | <code>Number</code> | The number that will be divided from all elements of the matrix |
+| Obj | <code>Object</code> | The matrix whose elements will be divided by the elements of M1 |
 
-Returns **[Object][74]** A new Matrix with the same dimensions as the input Matrix but with a new set of numbers
+<a name="Matrix.prod"></a>
 
-### prod
-
+### Matrix.prod(M1, M2) ⇒ <code>Object</code>
 Creates a new matrix from the multiplication of two matrices
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - The Product of the matrix multiplication
 
--   `M1` **[Object][74]** The first matrix
--   `M2` **[Object][74]** The second matrix that will be multiplied with the first
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The first matrix |
+| M2 | <code>Object</code> | The second matrix that will be multiplied with the first |
 
-Returns **[Object][74]** The Product of the matrix multiplication
+<a name="Matrix.invert"></a>
 
-### invert
-
+### Matrix.invert(M1) ⇒ <code>Object</code>
 Creates a new matrix whose values are inverted
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: <code>Object</code> - A new matrix with the same dimensions as the input-matrix but with an inverted set of numbers
 
--   `M1` **[Object][74]** The matrix that will be cloned and converted
+| Param | Type | Description |
+| --- | --- | --- |
+| M1 | <code>Object</code> | The matrix that will be cloned and converted |
 
-Returns **[Object][74]** A new matrix with the same dimensions as the input-matrix but with an inverted set of numbers
+<a name="Matrix.deserialize"></a>
 
-### deserialize
-
+### Matrix.deserialize(data) ⇒
 Creates a new matrix-object from a JSON-file
 
-#### Parameters
+**Kind**: static method of [<code>Matrix</code>](#Matrix)
+**Returns**: A new matrix-objet with the information of the JSON-file
 
--   `data`  The JSON-file that contains all the necessary information of a matrix-object
+| Param | Description |
+| --- | --- |
+| data | The JSON-file that contains all the necessary information of a matrix-object |
 
-Returns **any** A new matrix-objet with the information of the JSON-file
+<a name="Matrix_Class_Error_Message"></a>
 
-[1]: #matrix_class_error_message
+## Matrix_Class_Error_Message
+Sets the Error-messages and the state
 
-[2]: #matrix_class_error_message-1
-
-[3]: #matrix
-
-[4]: #parameters
-
-[5]: #show
-
-[6]: #dim
-
-[7]: #random
-
-[8]: #parameters-1
-
-[9]: #toarray
-
-[10]: #toarray_flat
-
-[11]: #tostring
-
-[12]: #serialize
-
-[13]: #reduce
-
-[14]: #map
-
-[15]: #parameters-2
-
-[16]: #row_map
-
-[17]: #parameters-3
-
-[18]: #col_map
-
-[19]: #parameters-4
-
-[20]: #copy
-
-[21]: #unit
-
-[22]: #diagonal
-
-[23]: #parameters-5
-
-[24]: #fill
-
-[25]: #parameters-6
-
-[26]: #transpose
-
-[27]: #invert
-
-[28]: #add
-
-[29]: #parameters-7
-
-[30]: #sub
-
-[31]: #parameters-8
-
-[32]: #mult
-
-[33]: #parameters-9
-
-[34]: #div
-
-[35]: #parameters-10
-
-[36]: #triangle
-
-[37]: #parameters-11
-
-[38]: #istriangle
-
-[39]: #hasempty
-
-[40]: #determinant
-
-[41]: #parameters-12
-
-[42]: #solvelgs
-
-[43]: #parameters-13
-
-[44]: #error_message
-
-[45]: #randomint
-
-[46]: #parameters-14
-
-[47]: #array_mult
-
-[48]: #parameters-15
-
-[49]: #fromarray
-
-[50]: #parameters-16
-
-[51]: #diagonal-1
-
-[52]: #parameters-17
-
-[53]: #random-1
-
-[54]: #parameters-18
-
-[55]: #map-1
-
-[56]: #parameters-19
-
-[57]: #add-1
-
-[58]: #parameters-20
-
-[59]: #sub-1
-
-[60]: #parameters-21
-
-[61]: #mult-1
-
-[62]: #parameters-22
-
-[63]: #div-1
-
-[64]: #parameters-23
-
-[65]: #prod
-
-[66]: #parameters-24
-
-[67]: #invert-1
-
-[68]: #parameters-25
-
-[69]: #deserialize
-
-[70]: #parameters-26
-
-[71]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
-
-[72]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-[73]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-
-[74]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-
-[75]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+**Kind**: global variable
