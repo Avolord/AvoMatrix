@@ -70,10 +70,10 @@ Creates a new matrix-object with given rows, columns and fill
         * [.fill(filler)](#Matrix+fill)
         * [.transpose()](#Matrix+transpose) ⇒
         * [.invert()](#Matrix+invert)
-        * [.add(Obj, Obj)](#Matrix+add)
-        * [.sub(Obj, Obj)](#Matrix+sub)
-        * [.mult(Obj, Obj)](#Matrix+mult)
-        * [.div(Obj, Obj)](#Matrix+div)
+        * [.add(Obj)](#Matrix+add)
+        * [.sub(Obj)](#Matrix+sub)
+        * [.mult(Obj)](#Matrix+mult)
+        * [.div(Obj)](#Matrix+div)
         * [.triangle(above, below)](#Matrix+triangle)
         * [.isTriangle()](#Matrix+isTriangle) ⇒ <code>Boolean</code>
         * [.hasEmpty()](#Matrix+hasEmpty) ⇒ <code>Boolean</code>
@@ -87,10 +87,10 @@ Creates a new matrix-object with given rows, columns and fill
         * [.diagonal(M1, diagnonal_num, filler)](#Matrix.diagonal) ⇒ <code>Object</code>
         * [.random(M1, min, max)](#Matrix.random) ⇒ <code>Object</code>
         * [.map(M1, func)](#Matrix.map) ⇒ <code>Object</code>
-        * [.add(M1, Obj, Obj)](#Matrix.add) ⇒ <code>Object</code>
-        * [.sub(M1, Obj, Obj)](#Matrix.sub) ⇒ <code>Object</code>
-        * [.mult(M1, Obj, Obj)](#Matrix.mult) ⇒ <code>Object</code>
-        * [.div(M1, Obj, Obj)](#Matrix.div) ⇒ <code>Object</code>
+        * [.add(M1, Obj)](#Matrix.add) ⇒ <code>Object</code>
+        * [.sub(M1, Obj)](#Matrix.sub) ⇒ <code>Object</code>
+        * [.mult(M1, Obj)](#Matrix.mult) ⇒ <code>Object</code>
+        * [.div(M1, Obj)](#Matrix.div) ⇒ <code>Object</code>
         * [.prod(M1, M2)](#Matrix.prod) ⇒ <code>Object</code>
         * [.invert(M1)](#Matrix.invert) ⇒ <code>Object</code>
         * [.deserialize(data)](#Matrix.deserialize) ⇒
@@ -251,7 +251,7 @@ Inverts the elements of a matrix
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
 <a name="Matrix+add"></a>
 
-### matrix.add(Obj, Obj)
+### matrix.add(Obj)
 Adds elements of another matrix or a number to the initial matrix
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
@@ -263,7 +263,7 @@ Adds elements of another matrix or a number to the initial matrix
 
 <a name="Matrix+sub"></a>
 
-### matrix.sub(Obj, Obj)
+### matrix.sub(Obj)
 Subtracts elements of another matrix or a number from the initial matrix
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
@@ -275,7 +275,7 @@ Subtracts elements of another matrix or a number from the initial matrix
 
 <a name="Matrix+mult"></a>
 
-### matrix.mult(Obj, Obj)
+### matrix.mult(Obj)
 Multiplies elements of another matrix or a number with the initial matrix
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
@@ -287,7 +287,7 @@ Multiplies elements of another matrix or a number with the initial matrix
 
 <a name="Matrix+div"></a>
 
-### matrix.div(Obj, Obj)
+### matrix.div(Obj)
 Divides elements of the initial matrix by the elements of another matrix or number
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
@@ -330,7 +330,7 @@ Calculates the determinant of a matrix
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
 **Returns**: <code>Number</code> - the determinant of the matrix
-**//**: WARNING: Do not enter a @param { Number } iterations because that is just for recursion purposes!
+**Warning**: Do not enter the perameter <code>iterations</code> because that is just for recursion purposes!
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -343,8 +343,8 @@ Solves a system of linear equations represented as a matrix
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)
 **Returns**: <code>Array</code> - The solved variables
-**//**: WARNING: Work In Progress
-**//**: WARNING: Do not enter a @param { Number } iterations because that is just for recursion purposes!
+**Warning**: WARNING: Work In Progress
+**Warning**: Do not enter the parameter <code>iterations</code> because that is just for recursion purposes!
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -437,7 +437,7 @@ Creates a matrix on which a function has been mapped to
 
 <a name="Matrix.add"></a>
 
-### Matrix.add(M1, Obj, Obj) ⇒ <code>Object</code>
+### Matrix.add(M1, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the sum of the elements of two matrices or a matrix and a number
 
 **Kind**: static method of [<code>Matrix</code>](#Matrix)
@@ -451,7 +451,7 @@ Creates a new matrix from the sum of the elements of two matrices or a matrix an
 
 <a name="Matrix.sub"></a>
 
-### Matrix.sub(M1, Obj, Obj) ⇒ <code>Object</code>
+### Matrix.sub(M1, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the difference of the elements of two matrices or a matrix and a number
 
 **Kind**: static method of [<code>Matrix</code>](#Matrix)
@@ -465,7 +465,7 @@ Creates a new matrix from the difference of the elements of two matrices or a ma
 
 <a name="Matrix.mult"></a>
 
-### Matrix.mult(M1, Obj, Obj) ⇒ <code>Object</code>
+### Matrix.mult(M1, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the product of the elements of two matrices or a matrix and a number
 
 **Kind**: static method of [<code>Matrix</code>](#Matrix)
@@ -479,7 +479,7 @@ Creates a new matrix from the product of the elements of two matrices or a matri
 
 <a name="Matrix.div"></a>
 
-### Matrix.div(M1, Obj, Obj) ⇒ <code>Object</code>
+### Matrix.div(M1, Obj) ⇒ <code>Object</code>
 Creates a new matrix from the division of the elements of two matrices or a matrix and a number
 
 **Kind**: static method of [<code>Matrix</code>](#Matrix)
